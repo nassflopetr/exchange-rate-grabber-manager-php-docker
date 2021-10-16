@@ -1,0 +1,3 @@
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+*/30 * * * * php /exchange-rate-grabber-manager-php/app.php >> /var/log/exchange-rate-grabber-manager-php/cron.log

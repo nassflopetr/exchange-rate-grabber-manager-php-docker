@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  redis:
+    build:
+      context: ./
+      dockerfile: ./redis/Dockerfile
+    container_name: redis
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - 6380:${REDIS_PORT}
+    networks:
+      - exchange-rate-grabber-manager-php-docker
+  cron:
+    build:
+      context: ./
+      dockerfile: ./cron/Dockerfile
+    container_name: cron
+    working_dir: /exchange-rate-grabber-manager-php
+    volumes:
+      - ./exchange-rate-grabber-manager-php:/exchange-rate-grabber-manager-php
+      - /var/log/exchange-rate-grabber-manager-php:/var/log/exchange-rate-grabber-manager-php
+    networks:
+      - exchange-rate-grabber-manager-php-docker
+
+networks:
+  exchange-rate-grabber-manager-php-docker:
